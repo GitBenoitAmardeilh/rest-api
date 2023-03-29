@@ -39,7 +39,7 @@ export interface TableState{
 }
 
 export interface ContentState{
-    data: IContent[],
+    data: IContent[]
 }
 
 export interface KeyState{

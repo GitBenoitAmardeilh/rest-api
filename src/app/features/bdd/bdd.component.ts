@@ -7,8 +7,6 @@ import { ITable } from 'src/app/core/models/table.interface';
 import { tryDeleteContentById, tryFetchContent } from 'src/app/store/actions/content.action';
 import { tableModalIsLoad } from 'src/app/store/actions/modal.action';
 import { tryDeleteTable } from 'src/app/store/actions/table.action';
-import { fetchContentSelector } from 'src/app/store/selectors/content.selector';
-import { tableIsLoad } from 'src/app/store/selectors/modal.selector';
 import { getTables } from 'src/app/store/selectors/table.selector';
 
 const todo = {
@@ -27,16 +25,13 @@ const todo = {
 })
 export class BddComponent implements OnInit {
 
-  public tableIsLoad$: Observable<boolean> = this.store.select(tableIsLoad)
   public tables$: Observable<ITable[]> = this.store.select(getTables)
-  public tableSelected: string
-  public tableLength: number
 
-  public contents$: Observable<IContent[]> = this.store.select(fetchContentSelector)
-  public contentLength: number
+  // public contents$: Observable<IContent[]> = this.store.select(fetchContentSelector)
+  // public contentLength: number
   // public contentSelected: IContent
-  public properties: {name: string, type: string}[]
-  public keys$: Observable<string[]>
+  // public properties: {name: string, type: string}[]
+  // public keys$: Observable<string[]>
 
   public types: string[]
 
@@ -45,29 +40,7 @@ export class BddComponent implements OnInit {
     private http: HttpClient
   ) {
 
-    this.types = [
-      "string",
-      "boolean",
-      "number",
-      "date"
-    ]
-
-    this.keys$ = this.contents$.pipe(
-      map( (k) => (k.length !== 0) ? Object.keys(k[0]) : [])
-    )
-
-    this.contents$.subscribe( c => {
-      this.contentLength = c.length
-      this.properties = []
-      if(c[0] !== undefined)
-        this.getType(c[0])
-    })
-
-    this.tables$.subscribe( t => {
-      this.tableLength = t.length
-    })
-
-    // this.http.post('https://restapi.fr/api/user', todo).subscribe()
+    // this.http.post('https://restapi.fr/api/rApi4all', {name: 'todos'}).subscribe()
 
   }
 
@@ -94,7 +67,7 @@ export class BddComponent implements OnInit {
    * @param _id 
    */
   selectTable(_name: string | undefined){
-    let name = this.tableSelected = _name as string
+    // let name = this.tableSelected = _name as string
     
     // let subscription = this.isLoad$.pipe(
     //   combineLatestWith(this.tables$),
@@ -119,9 +92,9 @@ export class BddComponent implements OnInit {
    * @param id 
    */
   deleteContent(ID: string){
-    let table = this.tableSelected
-    let id = ID
-    this.store.dispatch(tryDeleteContentById({table, id}))
+    // let table = this.tableSelected
+    // let id = ID
+    // this.store.dispatch(tryDeleteContentById({table, id}))
   }
 
   /**
@@ -132,10 +105,10 @@ export class BddComponent implements OnInit {
     
     Object.keys(property).forEach( (k: string) => {
       let t = this.types.filter( t => t === typeof property[k])
-      this.properties.push({
-        name: k,
-        type: t[0]
-      })
+      // this.properties.push({
+      //   name: k,
+      //   type: t[0]
+      // })
     })
   }
 

@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
-import { map, switchMap, tap } from "rxjs";
+import { map, mergeMap, switchMap, tap } from "rxjs";
 import { IContent } from "src/app/core/models/content.interface";
 import { ContentService } from "src/app/core/services/content.service";
 import { DeleteContentById, fetchContent, tryDeleteContentById, tryFetchContent } from "../actions/content.action";
@@ -10,7 +10,7 @@ export class ContentEffect{
 
     fetchContent$ = createEffect( () => this.action$.pipe(
         ofType(tryFetchContent),
-        switchMap( ({name}) => this.sContent.get(name).pipe(
+        mergeMap( ({name}) => this.sContent.get(name).pipe(
             map( (contents: IContent[]) => fetchContent({contents}))
         ))
     ))
