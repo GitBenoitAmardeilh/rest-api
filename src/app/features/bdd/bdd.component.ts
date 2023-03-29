@@ -69,10 +69,6 @@ export class BddComponent implements OnInit {
 
     // this.http.post('https://restapi.fr/api/user', todo).subscribe()
 
-    // this.http.delete('https://restapi.fr/api/user/642373fbe2f79965f068fcbd').subscribe(() => {
-
-    // })
-
   }
 
   ngOnInit(): void {}
