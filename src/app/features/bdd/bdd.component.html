@@ -1,0 +1,96 @@
+<div class="container">
+    <div class="tables">
+        <div class="title">
+            <div>
+                <h1>Ajouter une table</h1>
+                <!-- (tables$ | async).length -->
+                <p>{{ tableLength }} Table(s) ajoutée(s)</p>
+            </div>
+            <span (click)="laodModalTable()">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 512c141.4 0 256-114.6 256-256S397.4 0 256 0S0 114.6 0 256S114.6 512 256 512zM232 344V280H168c-13.3 0-24-10.7-24-24s10.7-24 24-24h64V168c0-13.3 10.7-24 24-24s24 10.7 24 24v64h64c13.3 0 24 10.7 24 24s-10.7 24-24 24H280v64c0 13.3-10.7 24-24 24s-24-10.7-24-24z"/></svg>
+            </span>
+        </div>
+        <div class="list">
+            <div *ngFor="let f of (tables$ | async); let i = index" class="box-table">
+                <div (click)="selectTable(f.name)" class="div-table">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path d="M0 48V487.7C0 501.1 10.9 512 24.3 512c5 0 9.9-1.5 14-4.4L192 400 345.7 507.6c4.1 2.9 9 4.4 14 4.4c13.4 0 24.3-10.9 24.3-24.3V48c0-26.5-21.5-48-48-48H48C21.5 0 0 21.5 0 48z"/></svg>
+                    <p>{{f.name}}</p>
+                </div>
+                <span sub-menu>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M0 256a56 56 0 1 1 112 0A56 56 0 1 1 0 256zm160 0a56 56 0 1 1 112 0 56 56 0 1 1 -112 0zm216-56a56 56 0 1 1 0 112 56 56 0 1 1 0-112z"/></svg>
+                </span>
+                <div class="sub-menu">
+                    <ul>
+                        <li (click)="selectTable(f.name)">Ouvrir</li>
+                    </ul>
+                    <ul>
+                        <li><a href="https://restapi.fr/api/{{f.name}}" target="_blank">Ouvrir le lien</a></li>
+                        <li>Paramètres</li>
+                    </ul>
+                    <ul>
+                        <li (click)="deleteTable(f._id)" class="delete">Supprimer la table</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="content">
+        <div class="content-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th class="checkbox"></th>
+                        <th *ngFor="let k of (keys$ | async)">{{k}}</th>
+                        <th class="other"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- (click)="selectContent(c._id) (click)="deleteContent(c['_id'])"" -->
+                    <tr *ngFor="let c of (contents$ | async); let i = index;">
+                        <td class="checkbox">{{i + 1}}</td>
+                        <!-- <td class="checkbox"><input type="checkbox" id="scales" name="scales"></td> -->
+                        <td *ngFor="let k of (keys$ | async); let j = index;">{{c[k]}}</td>
+                        <td class="other"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="params">
+            <div class="p-content">
+                <!-- *ngIf="properties.length" -->
+                <div class="p-content-title">
+                    <div>
+                        <p>Propriétés</p>
+                    </div>
+                    <div class="prop-add">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z"/></svg>
+                    </div>
+                </div>
+                <div *ngFor="let p of properties" class="p-bloc">
+                    <div>
+                        <div class="p-value">
+                            <div>
+                                <p>{{ p.name }}</p>
+                            </div>
+                            <div class="div-type">
+                                <p>Type:</p>
+                                <select disabled>
+                                    <option *ngFor="let t of types" [value]="t" [selected]="t == p.type">{{t}}</option>
+                                </select>
+                            </div>
+                            <div>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/></svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-content-title">
+                    <div>
+                        <p>Data</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<app-m-table *ngIf="(tableIsLoad$ | async)"></app-m-table>

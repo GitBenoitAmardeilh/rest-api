@@ -1,1 +1,32 @@
+@import url('./assets/styles/main.scss');
+
 /* You can add global styles to this file, and also import other style files */
+*{
+    margin: 0;
+    padding: 0;
+    font-family: 'Bainsley';
+    color: white;
+}
+
+html, body { 
+    height: 100%; // necessary when using percentage heights within body
+    width: 100%;  // on non-absolutely positioned children (such as .outer)
+                  // more info: https://stackoverflow.com/a/31728799/3597276 */ 
+    
+
+    overflow: hidden; /* prevent vertical scrollbar on browser window,
+                         in conformance with demos posted in question */
+}
+
+@font-face {
+    font-family: 'Bainsley';
+    src: url('./assets/piloces/Bainsley_Roman.otf');
+}
+
+svg{
+    width: 20px;
+}
+
+li{
+    list-style-type: none;
+}
