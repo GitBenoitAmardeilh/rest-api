@@ -16,7 +16,8 @@ export const dataReducer = createReducer(
     on(fetchTables, (state: TableState, action): TableState => {
         return {
             ...state,
-            data: (Object.keys(action.tables)[0] === "0") ? [...state.data, ...action.tables as ITable[]] : [action.tables as ITable],
+            data: (action.tables.length === 0) ? [] : [...action.tables as ITable[]],
+            // data: (Object.keys(action.tables)[0] === "0") ? [...state.data, ...action.tables as ITable[]] : [action.tables as ITable],
             isLoad: true
         }
     }),

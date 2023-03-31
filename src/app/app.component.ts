@@ -3,7 +3,9 @@ import { Store } from '@ngrx/store';
 import { combineLatest, combineLatestWith, map, Observable, Subscription, tap } from 'rxjs';
 import { IContent } from './core/models/content.interface';
 import { ITable } from './core/models/table.interface';
+import { KeyService } from './core/services/key.service';
 import { tryFetchContent } from './store/actions/content.action';
+import { tryAddKey } from './store/actions/key.action';
 import { tryFetchTables } from './store/actions/table.action';
 import { fetchContentSelector } from './store/selectors/content.selector';
 import { getIsLoad, getTables } from './store/selectors/table.selector';
@@ -26,48 +28,18 @@ export class AppComponent implements OnInit {
   private subscription: Subscription = new Subscription()
 
   constructor(
-    private store: Store
+    private store: Store,
+    private sKey: KeyService
   ){
-
-    let sub = this.content$.pipe(
-      combineLatestWith(this.tables$),
-      map( ([contents, tables]: [IContent[], ITable[]]) => {
-        return [contents, tables]
-        // return [...contents, ...tables]
-      })
-    )
-
-    this.subscription.add(sub.subscribe( data => {
-      console.log(data[1])
-    }))
-
-    // this.isLoad$.pipe(
-    //   combineLatestWith(this.tables$),
-    //   map( ([load, tables]) => {
-    //     if(load && tables.length){
-    //       tables.forEach( (table) => {
-    //           let name = table.name
-    //           console.log("dispatch")
-    //           this.store.dispatch(tryFetchContent({name}))
-              
-    //       })
-    //     }
-    //   })
-    // ).subscribe()
-
-    // this.content$.pipe(
-    //   combineLatestWith(this.tables$),
-    //   map( ([contents, tables]) => {
-    //     return [contents, tables]
-    //   })
-    // ).subscribe( data => {
-    //   console.log(data)
-    // })
 
   }
 
   ngOnInit(): void {
     this.store.dispatch(tryFetchTables())
+  }
+
+  addKey(){
+
   }
 
 }

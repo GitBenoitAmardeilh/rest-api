@@ -11,7 +11,7 @@ export class TableEffect{
     fetchTable$ = createEffect( () => this.action$.pipe(
         ofType(tryFetchTables),
         switchMap(() => this.sTable.get().pipe(
-            map((tables: ITable[] | ITable) => fetchTables({tables}))
+            map((tables: ITable[]) => fetchTables({tables}))
         ))
     ))
 
