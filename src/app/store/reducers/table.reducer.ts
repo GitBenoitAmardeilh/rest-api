@@ -14,10 +14,20 @@ const INITIAL_DATA_STATE: TableState = {
 export const dataReducer = createReducer(
     INITIAL_DATA_STATE,
     on(fetchTables, (state: TableState, action): TableState => {
+        let array = action.tables as ITable[]
+        let obj = action.tables as ITable
+        let tables: ITable[] = []
+
+        if(obj['_id'])
+            tables.push(obj)
+        else 
+            tables = array
+
         return {
             ...state,
-            data: (action.tables.length === 0) ? [] : [...action.tables as ITable[]],
-            // data: (Object.keys(action.tables)[0] === "0") ? [...state.data, ...action.tables as ITable[]] : [action.tables as ITable],
+            data: tables,
+            // data: (action.tables.length === undefined) ? [] : [...action.tables as ITable[]],
+            // data: (action.tables.length === 0) ? [] : [...action.tables as ITable[]],
             isLoad: true
         }
     }),

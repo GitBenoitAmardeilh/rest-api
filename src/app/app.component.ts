@@ -1,16 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { combineLatest, combineLatestWith, map, Observable, Subscription, tap } from 'rxjs';
+import { Observable, Subscription, combineLatestWith, map } from 'rxjs';
 import { IContent } from './core/models/content.interface';
 import { ITable } from './core/models/table.interface';
 import { KeyService } from './core/services/key.service';
-import { tryFetchContent } from './store/actions/content.action';
-import { tryAddKey } from './store/actions/key.action';
 import { tryFetchTables } from './store/actions/table.action';
 import { fetchContentSelector } from './store/selectors/content.selector';
 import { getIsLoad, getTables } from './store/selectors/table.selector';
-// import { changeIsLoad } from './store/actions/table.action';
-// import { isLoadValue } from './store/selectors/table.selector';
 
 @Component({
   selector: 'app-root',
@@ -31,14 +27,21 @@ export class AppComponent implements OnInit {
     private store: Store,
     private sKey: KeyService
   ){
-
+    this.isLoad$.pipe(
+      combineLatestWith(this.tables$),
+      map(([isLoad, tables]) => {
+        return [isLoad, tables]
+      })
+    ).subscribe((data) => {
+      // console.log(data)
+    })
   }
 
   ngOnInit(): void {
     this.store.dispatch(tryFetchTables())
   }
 
-  addKey(){
+  checkTableContent(){
 
   }
 

@@ -7,6 +7,7 @@ import { ITable } from 'src/app/core/models/table.interface';
 import { tryDeleteContentById, tryFetchContent } from 'src/app/store/actions/content.action';
 import { tableModalIsLoad } from 'src/app/store/actions/modal.action';
 import { tryDeleteTable } from 'src/app/store/actions/table.action';
+import { tableIsLoad } from 'src/app/store/selectors/modal.selector';
 import { getTables } from 'src/app/store/selectors/table.selector';
 
 const todo = {
@@ -26,6 +27,7 @@ const todo = {
 export class BddComponent implements OnInit {
 
   public tables$: Observable<ITable[]> = this.store.select(getTables)
+  public isTableModalLoad$: Observable<boolean> = this.store.select(tableIsLoad)
 
   // public contents$: Observable<IContent[]> = this.store.select(fetchContentSelector)
   // public contentLength: number
