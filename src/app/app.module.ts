@@ -9,7 +9,6 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { BddComponent } from './features/bdd/bdd.component';
 import { ParametersComponent } from './features/parameters/parameters.component';
-import { DashboardComponent } from './features/dashboard/dashboard.component';
 import { MTableComponent } from './shared/components/m-table/m-table.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EffectsModule } from '@ngrx/effects';
@@ -24,7 +23,6 @@ import { KeyEffect } from './store/effects/key.effect';
     AppComponent,
     BddComponent,
     ParametersComponent,
-    DashboardComponent,
     MTableComponent,
 
     ShowMenuDirective

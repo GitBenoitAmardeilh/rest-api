@@ -41,7 +41,7 @@ export class BddComponent implements OnInit {
     map( t => (t[0] !== undefined) ? Object.keys(t[0]) : [])
   )
 
-  public properties$: Observable<any[]> = this.store.select(fetchContentSelector).pipe(
+  public properties$: Observable<{key: string, type: string}[]> = this.store.select(fetchContentSelector).pipe(
     map((t) => {
       if(t[0]){
         let array: {key: string, type: string}[] = []
