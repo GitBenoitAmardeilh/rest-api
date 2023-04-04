@@ -109,10 +109,6 @@ export class BddComponent implements OnInit {
         return []
       })
     )
-    
-    // subscription.forEach( t => {
-    //   console.log(t)
-    // })
 
     this.store.dispatch(tryFetchContent({table}))
   }
