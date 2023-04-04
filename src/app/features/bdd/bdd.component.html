@@ -1,10 +1,8 @@
 <div class="container">
-    <div class="tables">
+    <div class="tables scrool">
         <div class="title">
             <div>
-                <h1>Ajouter une table</h1>
-                <!-- (tables$ | async).length -->
-                <!-- <p>{{ tableLength }} Table(s) ajoutée(s)</p> -->
+                <input type="text" placeholder="Filtre">
             </div>
             <!-- (click)="laodModalTable()" -->
             <span>
@@ -28,12 +26,12 @@
                     </ul>
                     <ul>
                         <!-- href="https://restapi.fr/api/{{f.name}}" -->
-                        <li><a target="_blank">Ouvrir le lien</a></li>
+                        <li><a href="https://restapi.fr/api/{{f.name}}" target="_blank">Ouvrir le lien</a></li>
                         <li>Paramètres</li>
                     </ul>
                     <ul>
                         <!-- (click)="deleteTable(f._id)" -->
-                        <li class="delete">Supprimer la table</li>
+                        <li (click)="deleteTable(f._id)" class="delete">Supprimer la table</li>
                     </ul>
                 </div>
             </div>
@@ -41,33 +39,30 @@
     </div>
     <!-- content -->
     <div class="content">
-        <div class="content-table">
-            <table>
+        <section class="section-table">
+            <table *ngIf="!(isContents$ | async)">
                 <thead>
                     <tr>
-                        <th class="checkbox"></th>
                         <th *ngFor="let k of (keys$ | async)">{{k}}</th>
-                        <th class="other"></th>
+                        <th class="end"></th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr *ngFor="let c of (contents$ | async); let i = index;">
-                        <td class="checkbox">{{i + 1}}</td>
-                        <td *ngFor="let k of (keys$ | async); let j = index;">{{c[k]}}</td>
-                        <td class="other"></td>
+                <tbody class="scrool2">
+                    <tr *ngFor="let c of (contents$ | async)">
+                        <td *ngFor="let k of (keys$ | async)">{{c[k]}}</td>
+                        <td class="end"></td>
                     </tr>
                 </tbody>
             </table>
-        </div>
-        <div class="params">
-            <div class="p-content">
-                <div class="p-content-title">
-                    <div>
-                        <p>Propriétés</p>
-                    </div>
-                    <div class="prop-add">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z"/></svg>
-                    </div>
+            <div *ngIf="(isContents$ | async) && tableSelected" class="button">
+                <p>{{tableSelected}}</p>
+                <button>Ajouter des données</button>
+            </div>
+        </section>
+        <section class="section-params">
+            <div class="properties">
+                <div class="params-title">
+                    <p>Propriétées</p>
                 </div>
                 <div *ngFor="let p of (properties$ | async)" class="p-bloc">
                     <div>
@@ -87,13 +82,13 @@
                         </div>
                     </div>
                 </div>
-                <div class="p-content-title">
-                    <div>
-                        <p>Data</p>
-                    </div>
+            </div>
+            <div class="data">
+                <div class="params-title">
+                    <p>Données</p>
                 </div>
             </div>
-        </div>
+        </section>
     </div>
     <!-- content -->
 </div>

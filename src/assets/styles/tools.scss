@@ -1,0 +1,29 @@
+.delete{
+    color: rgb(253, 46, 46);
+    font-weight: bold;
+    letter-spacing: 0.5px;
+}
+
+.scrool{
+    overflow: auto;
+    /* width */
+}
+
+.scrool::-webkit-scrollbar {
+    width: 5px;
+}
+
+/* Track */
+.scrool::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+/* Handle */
+.scrool::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
+/* Handle on hover */
+.scrool::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}

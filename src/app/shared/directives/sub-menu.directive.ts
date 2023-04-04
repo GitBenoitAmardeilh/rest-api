@@ -3,8 +3,6 @@ import { Directive, ElementRef, HostListener } from "@angular/core";
 @Directive({selector: '[sub-menu]'})
 export class ShowMenuDirective{
 
-    private selectedEL: any
-
     constructor(
         private el: ElementRef
     ){}
@@ -14,11 +12,18 @@ export class ShowMenuDirective{
     }
 
     @HostListener('click') onClick(){
-        this.selectedEL = this.el.nativeElement.nextElementSibling
-        // let d = this.el.nativeElement.nextElementSibling
-        this.selectedEL.style.display = (this.selectedEL.style.display  === 'block') ? 'none' : 'block'
-        // d.style.display = (d.style.display  === 'block') ? 'none' : 'block'
-        
+        let sElement = this.el.nativeElement.nextElementSibling
+
+        if(sElement.style.display === 'block'){
+            sElement.style.display = 'none'
+        } else {
+            document.querySelectorAll('.sub-menu').forEach( (sMenu) => {
+                let menu = sMenu as HTMLElement
+                    menu.style.display = 'none'
+            })
+            sElement.style.display = 'block'
+        }
+
     }
 
 

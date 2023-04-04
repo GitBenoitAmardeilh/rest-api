@@ -8,6 +8,7 @@ import { tryFetchTables } from './store/actions/table.action';
 import { fetchContentSelector } from './store/selectors/content.selector';
 import { getIsLoad, getTables } from './store/selectors/table.selector';
 import { tryfetchKey } from './store/actions/key.action';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',

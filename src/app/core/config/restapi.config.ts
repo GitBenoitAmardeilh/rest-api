@@ -6,7 +6,7 @@ export const restAPIConfig = {
      * rApi42: 2 valeurs ajoutées
      * rApi4[n]: n valeurs ajoutées
      */
-    table: 'rApi4all',
+    table: 'rApi41',
 
     /**
      * Liste des propriétées d'une table

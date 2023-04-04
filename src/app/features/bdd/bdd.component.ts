@@ -30,12 +30,13 @@ export class BddComponent implements OnInit {
   public tables$: Observable<ITable[]> = this.store.select(getTables)
   public isTableModalLoad$: Observable<boolean> = this.store.select(tableIsLoad)
   public isLoad$: Observable<boolean>  = this.store.select(getIsLoad);
-  public tableSelected: ITable
+  public tableSelected: string
 
   public contents$: Observable<IContent[]> = this.store.select(fetchContentSelector)
-  // public contentLength: number
-  // public contentSelected: IContent
-  // public properties: {key: string, type: string}[]
+  public isContents$: Observable<boolean> = this.store.select(fetchContentSelector).pipe(
+    map(t => (t.length) ? false : true)
+  )
+
   public keys$: Observable<any[]> = this.store.select(fetchContentSelector).pipe(
     map( t => (t[0] !== undefined) ? Object.keys(t[0]) : [])
   )
@@ -63,7 +64,12 @@ export class BddComponent implements OnInit {
     private http: HttpClient
   ) {
 
-    // this.http.post('https://restapi.fr/api/rApi4all', {name: 'todos'}).subscribe()
+    this.types = [
+      'string',
+      'boolean',
+      'number',
+      "object"
+    ]
 
   }
 
@@ -90,7 +96,8 @@ export class BddComponent implements OnInit {
    * @param _id 
    */
   selectTable(_table: ITable | undefined){
-    let table = this.tableSelected = _table as ITable
+    let table = _table as ITable
+    this.tableSelected = table.name
     
     let subscription = this.isLoad$.pipe(
       combineLatestWith(this.tables$),
