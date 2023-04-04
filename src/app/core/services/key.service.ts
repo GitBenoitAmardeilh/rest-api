@@ -1,8 +1,10 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { map, Observable, tap } from "rxjs";
+import { Observable } from "rxjs";
 import { IKey } from "../models/key.interface";
 import { ITable } from "../models/table.interface";
+import { restAPIConfig } from "../config/restapi.config";
+import { IContent } from "../models/content.interface";
 
 @Injectable({
     providedIn: 'root'
@@ -11,19 +13,21 @@ export class KeyService{
     constructor(
         private http: HttpClient
     ){}
+    
+    /**
+     * 
+     * @returns 
+     */
+    add(key: IKey): Observable<IKey>{
+        return this.http.post<IKey>(`https://restapi.fr/api/${restAPIConfig.key}`, key)
+    }
 
     /**
      * 
      * @param table 
      * @returns 
      */
-    get(table: ITable): Observable<IKey[]>{
-        return this.http.get<IKey[]>(`https://restapi.fr/api/${table.name}`).pipe(
-            tap( t => console.log({
-                id_table: table._id,
-                keys: []
-            })),
-            // map( t => (t.length) ? Object.keys(t[0]) : [])
-        )
+    get(table: ITable): Observable<IContent | IContent[]>{
+        return this.http.get<IContent | IContent[]>(`https://restapi.fr/api/${table.name}`)
     }
 }

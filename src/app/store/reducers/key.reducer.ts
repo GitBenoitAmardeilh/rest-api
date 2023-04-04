@@ -1,7 +1,8 @@
 import { createReducer, on } from "@ngrx/store";
 import { IKey } from "src/app/core/models/key.interface";
 import { KeyState } from "src/app/core/models/myState.interface";
-import { addKey } from "../actions/key.action";
+import { fetchKey } from "../actions/key.action";
+import { IContent } from "src/app/core/models/content.interface";
 
 export const keyKey = "keys"
 
@@ -11,11 +12,22 @@ const INITIAL_KEY_STATE: KeyState = {
 
 export const keyReducer = createReducer(
     INITIAL_KEY_STATE,
-    on(addKey, (state: KeyState, action) => {
-        console.log(action)
+    on(fetchKey, (state: KeyState, action) => {
+        let content = action.content as IContent[]
+        let keys: string[] = []
+        let d: IKey[] = []
+        if(content.length){
+            Object.keys(content[0]).forEach( k => {
+                keys.push(k)
+            })
+        }
+        d.push({
+            id_table: action.table._id as string,
+            keys: keys
+        })
         return {
             ...state,
-            data: []
+            data: [...state.data, ...d]
         }
     })
 )

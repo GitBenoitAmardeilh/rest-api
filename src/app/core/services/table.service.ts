@@ -18,7 +18,6 @@ export class TableService{
      * @returns 
      */
     add(table: ITable): Observable<ITable>{
-        console.log("launch service");
         return this.http.post<ITable>(`https://restapi.fr/api/${restAPIConfig.table}`, table.name)
     }
 
@@ -26,8 +25,8 @@ export class TableService{
      * 
      * @returns 
      */
-    get(): Observable<ITable | ITable[]>{
-        return this.http.get<ITable | ITable[]>(`https://restapi.fr/api/${restAPIConfig.table}`)
+    get(): Observable<ITable[]>{
+        return this.http.get<ITable[]>(`https://restapi.fr/api/${restAPIConfig.table}`)
     }
 
     /**

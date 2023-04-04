@@ -7,6 +7,7 @@ import { KeyService } from './core/services/key.service';
 import { tryFetchTables } from './store/actions/table.action';
 import { fetchContentSelector } from './store/selectors/content.selector';
 import { getIsLoad, getTables } from './store/selectors/table.selector';
+import { tryfetchKey } from './store/actions/key.action';
 
 @Component({
   selector: 'app-root',
@@ -21,11 +22,8 @@ export class AppComponent implements OnInit {
 
   public content$: Observable<IContent[]> = this.store.select(fetchContentSelector)
 
-  private subscription: Subscription = new Subscription()
-
   constructor(
-    private store: Store,
-    private sKey: KeyService
+    private store: Store
   ){
     this.isLoad$.pipe(
       combineLatestWith(this.tables$),
@@ -33,7 +31,8 @@ export class AppComponent implements OnInit {
         return [isLoad, tables]
       })
     ).subscribe((data) => {
-      // console.log(data)
+      if(data[0] === true && (data[1] as ITable[]).length)
+        this.checkTableContent(data[1] as ITable[])
     })
   }
 
@@ -41,8 +40,10 @@ export class AppComponent implements OnInit {
     this.store.dispatch(tryFetchTables())
   }
 
-  checkTableContent(){
-
+  checkTableContent(tables: ITable[]){
+    tables.forEach( table => {
+      this.store.dispatch(tryfetchKey({table}))
+    })
   }
 
 }

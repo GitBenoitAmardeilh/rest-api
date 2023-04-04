@@ -1,14 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { map, Observable, tap } from 'rxjs';
+import { combineLatestWith, map, Observable, tap } from 'rxjs';
 import { IContent } from 'src/app/core/models/content.interface';
 import { ITable } from 'src/app/core/models/table.interface';
 import { tryDeleteContentById, tryFetchContent } from 'src/app/store/actions/content.action';
 import { tableModalIsLoad } from 'src/app/store/actions/modal.action';
 import { tryDeleteTable } from 'src/app/store/actions/table.action';
+import { fetchContentSelector } from 'src/app/store/selectors/content.selector';
 import { tableIsLoad } from 'src/app/store/selectors/modal.selector';
-import { getTables } from 'src/app/store/selectors/table.selector';
+import { getIsLoad, getTables } from 'src/app/store/selectors/table.selector';
 
 const todo = {
   name: "bob",
@@ -28,12 +29,32 @@ export class BddComponent implements OnInit {
 
   public tables$: Observable<ITable[]> = this.store.select(getTables)
   public isTableModalLoad$: Observable<boolean> = this.store.select(tableIsLoad)
+  public isLoad$: Observable<boolean>  = this.store.select(getIsLoad);
+  public tableSelected: ITable
 
-  // public contents$: Observable<IContent[]> = this.store.select(fetchContentSelector)
+  public contents$: Observable<IContent[]> = this.store.select(fetchContentSelector)
   // public contentLength: number
   // public contentSelected: IContent
-  // public properties: {name: string, type: string}[]
-  // public keys$: Observable<string[]>
+  // public properties: {key: string, type: string}[]
+  public keys$: Observable<any[]> = this.store.select(fetchContentSelector).pipe(
+    map( t => (t[0] !== undefined) ? Object.keys(t[0]) : [])
+  )
+
+  public properties$: Observable<any[]> = this.store.select(fetchContentSelector).pipe(
+    map((t) => {
+      if(t[0]){
+        let array: {key: string, type: string}[] = []
+        Object.keys(t[0]).forEach( k => {
+          array.push({
+            key: k,
+            type: typeof t[0][k]
+          })
+        })
+        return array
+      }
+      return []
+    })
+  )
 
   public types: string[]
 
@@ -68,25 +89,25 @@ export class BddComponent implements OnInit {
    * 
    * @param _id 
    */
-  selectTable(_name: string | undefined){
-    // let name = this.tableSelected = _name as string
+  selectTable(_table: ITable | undefined){
+    let table = this.tableSelected = _table as ITable
     
-    // let subscription = this.isLoad$.pipe(
-    //   combineLatestWith(this.tables$),
-    //   map(([load, tables]) => {
-    //     if(load && tables.length){
-    //       console.log(load);  
-    //       return tables
-    //     }
-    //     return []
-    //   })
-    // )
+    let subscription = this.isLoad$.pipe(
+      combineLatestWith(this.tables$),
+      map(([load, tables]) => {
+        if(load && tables.length){
+          console.log(load);  
+          return tables
+        }
+        return []
+      })
+    )
     
     // subscription.forEach( t => {
     //   console.log(t)
     // })
 
-    // this.store.dispatch(tryFetchContent({name}))
+    this.store.dispatch(tryFetchContent({table}))
   }
 
   /**

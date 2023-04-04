@@ -10,12 +10,12 @@ export class ContentEffect{
 
     fetchContent$ = createEffect( () => this.action$.pipe(
         ofType(tryFetchContent),
-        mergeMap( ({name}) => this.sContent.get(name).pipe(
-            map( (contents: IContent[]) => fetchContent({contents}))
+        mergeMap( ({table}) => this.sContent.get(table).pipe(
+            map( (contents: IContent[]) => fetchContent({contents, table}))
         ))
     ))
 
-    deleteByID = createEffect( () => this.action$.pipe(
+    deleteByID$ = createEffect( () => this.action$.pipe(
         ofType(tryDeleteContentById),
         switchMap( ({table, id}) => this.sContent.delete(table, id).pipe(
             map( () => DeleteContentById({id}))

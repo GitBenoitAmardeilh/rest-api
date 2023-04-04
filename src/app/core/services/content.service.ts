@@ -2,11 +2,13 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { IContent } from "../models/content.interface";
+import { ITable } from "../models/table.interface";
 
 @Injectable({
     providedIn: 'root'
 })
 export class ContentService{
+
     constructor(
         private http: HttpClient
     ){}
@@ -16,8 +18,8 @@ export class ContentService{
      * @param table 
      * @returns 
      */
-    get(name: string): Observable<IContent[]>{
-        return this.http.get<IContent[]>(`https://restapi.fr/api/${name}`)
+    get(table: ITable): Observable<IContent[]>{
+        return this.http.get<IContent[]>(`https://restapi.fr/api/${table.name}`)
     }
 
     /**

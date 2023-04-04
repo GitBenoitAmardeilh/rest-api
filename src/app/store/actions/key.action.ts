@@ -1,6 +1,6 @@
 import { createAction, props } from "@ngrx/store";
-import { IKey } from "src/app/core/models/key.interface";
+import { IContent } from "src/app/core/models/content.interface";
 import { ITable } from "src/app/core/models/table.interface";
 
-export const tryAddKey = createAction('[key] try add key', props<{table: ITable}>())
-export const addKey = createAction('[key] add key', props<{keys: IKey[]}>())
+export const tryfetchKey = createAction('[key] try fetch key', props<{table: ITable}>())
+export const fetchKey = createAction('[key] fetch key', props<{content: IContent | IContent[], table: ITable}>())

@@ -12,12 +12,11 @@
             </span>
         </div>
         <div class="list">
-            <!-- *ngFor="let f of (tables$ | async); let i = index" -->
             <div class="box-table" *ngFor="let f of (tables$ | async); let i = index">
                  <!-- (click)="selectTable(f.name)" -->
                 <div class="div-table">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path d="M0 48V487.7C0 501.1 10.9 512 24.3 512c5 0 9.9-1.5 14-4.4L192 400 345.7 507.6c4.1 2.9 9 4.4 14 4.4c13.4 0 24.3-10.9 24.3-24.3V48c0-26.5-21.5-48-48-48H48C21.5 0 0 21.5 0 48z"/></svg>
-                    <p>{{f.name}}</p>
+                    <p (click)="selectTable(f)">{{f.name}}</p>
                 </div>
                 <span sub-menu>
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M0 256a56 56 0 1 1 112 0A56 56 0 1 1 0 256zm160 0a56 56 0 1 1 112 0 56 56 0 1 1 -112 0zm216-56a56 56 0 1 1 0 112 56 56 0 1 1 0-112z"/></svg>
@@ -40,7 +39,8 @@
             </div>
         </div>
     </div>
-    <!-- <div class="content">
+    <!-- content -->
+    <div class="content">
         <div class="content-table">
             <table>
                 <thead>
@@ -69,11 +69,11 @@
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z"/></svg>
                     </div>
                 </div>
-                <div *ngFor="let p of properties" class="p-bloc">
+                <div *ngFor="let p of (properties$ | async)" class="p-bloc">
                     <div>
                         <div class="p-value">
                             <div>
-                                <p>{{ p.name }}</p>
+                                <p>{{ p.key }}</p>
                             </div>
                             <div class="div-type">
                                 <p>Type:</p>
@@ -94,7 +94,8 @@
                 </div>
             </div>
         </div>
-    </div> -->
+    </div>
+    <!-- content -->
 </div>
 <!-- *ngIf="(tableIsLoad$ | async)" -->
 <app-m-table *ngIf="(isTableModalLoad$ | async)"></app-m-table>
