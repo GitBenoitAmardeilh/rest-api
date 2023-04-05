@@ -19,6 +19,7 @@ import { ShowMenuDirective } from './shared/directives/sub-menu.directive';
 import { KeyEffect } from './store/effects/key.effect';
 import { MenuComponent } from './features/bdd/menu/menu.component';
 import { ContentComponent } from './features/bdd/content/content.component';
+import { MContentComponent } from './shared/components/m-content/m-content.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { ContentComponent } from './features/bdd/content/content.component';
 
     ShowMenuDirective,
       MenuComponent,
-      ContentComponent
+      ContentComponent,
+      MContentComponent
   ],
   imports: [
     BrowserModule,
