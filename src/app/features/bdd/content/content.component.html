@@ -1,0 +1,46 @@
+<section class="c-main">
+    <div class="c-content">
+        <div *ngIf="format === 'table'" class="c-table">
+            <table *ngIf="!(isContents$ | async)">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                        <th class="data" *ngFor="let k of (keys$ | async)">{{k}}</th>
+                        <th class="td-th-end"></th>
+                    </tr>
+                </thead>
+                <tbody class="scrool2">
+                    <tr *ngFor="let c of (contents$ | async); let i = index">
+                        <td class="i-number">
+                            <div>
+                                {{i + 1}}
+                            </div>
+                        </td>
+                        <td class="td-checkbox">
+                            <div>
+                                <input type="checkbox">
+                            </div>
+                        </td>
+                        <td class="data" *ngFor="let k of (keys$ | async)">{{c[k]}}</td>
+                        <td class="td-th-end"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div *ngIf="format === 'json'" class="json">
+            <p>json</p>
+        </div>
+    </div>
+    <div class="c-params">
+        <div class="box-param">
+            <div>
+                <span>Propriétées</span>
+            </div>
+            <div *ngFor="let p of (properties$ | async)">
+                <p>{{p.key}}</p>
+                <p>{{p.type}}</p>
+            </div>
+        </div>
+    </div>
+</section>

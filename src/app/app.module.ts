@@ -17,6 +17,8 @@ import { TableEffect } from './store/effects/table.effect';
 import { ContentEffect } from './store/effects/content.effect';
 import { ShowMenuDirective } from './shared/directives/sub-menu.directive';
 import { KeyEffect } from './store/effects/key.effect';
+import { MenuComponent } from './features/bdd/menu/menu.component';
+import { ContentComponent } from './features/bdd/content/content.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,9 @@ import { KeyEffect } from './store/effects/key.effect';
     ParametersComponent,
     MTableComponent,
 
-    ShowMenuDirective
+    ShowMenuDirective,
+      MenuComponent,
+      ContentComponent
   ],
   imports: [
     BrowserModule,

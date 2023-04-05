@@ -1,0 +1,125 @@
+.c-main{
+    display: flex;
+    background-color: rgb(197, 197, 197);
+    height: 100%;
+}
+
+.c-content{
+    width: calc(100% - 250px);
+}
+
+.c-table{
+    display: flex;
+    width: 100%;
+    height: calc(100% - 120px);
+    background-color: var(--primary-color);
+    overflow-y: auto;
+    &::-webkit-scrollbar {
+        width: 15px;
+    }
+    
+    /* Track */
+    &::-webkit-scrollbar-track {
+        background: #3d3d3d;
+    }
+    
+    /* Handle */
+    &::-webkit-scrollbar-thumb {
+        background: #f1f1f1;
+        border: 1px solid rgb(110, 110, 110);
+    }
+    
+    /* Handle on hover */
+    &::-webkit-scrollbar-thumb:hover {
+        background: #c4c4c4;
+        cursor: pointer;
+    }
+}
+
+table{
+    display: inline-block;
+    border-collapse: collapse;
+    
+    width: 100%;
+    
+    thead{}
+    
+    tbody{
+        height: inherit;
+        tr:nth-child(2n) {
+            background-color: rgb(65, 67, 75);
+        }
+    }
+    td, th{
+        max-width: 400px;
+        white-space: nowrap;
+        overflow:hidden;
+        text-overflow:ellipsis;
+        color: rgb(255, 255, 255);
+        &:last-child{
+            border-right: none;
+        }
+    }
+    th{ 
+        text-align: left;
+        padding: 30px 0;
+        color: white;
+        letter-spacing: 1px;
+        color: rgb(247, 88, 25);
+    }
+    td{
+        font-size: 14px;
+        
+    }
+    .data{
+        padding: 10px 40px 10px 5px;
+    }
+    .td-th-end{
+        width: 100%;
+    }
+    .i-number{
+        div{
+            padding: 0 7px 0 10px;
+            // font-weight: bold;
+            color: rgb(255, 75, 4);
+        }
+    }
+    .td-checkbox{
+        div{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 15px 0 10px;
+            input:hover{
+                cursor: pointer;
+            }
+        }
+    }
+}
+
+
+
+.c-params{
+    background-color: var(--primary-color   );
+    width: 250px;
+    border-left: 1px solid rgb(65, 65, 65);
+}
+
+.box-param{
+    display: flex;
+    flex-direction: column;
+    font-size: 15px;
+    div:first-child{
+        background-color: rgb(36, 36, 36);
+    }
+    // div:last-child{
+        p:last-child{
+            color: rgb(8, 212, 8)
+        }
+    // }
+    div{
+        display: flex;
+        justify-content: space-between;
+        padding: 5px 15px;
+    }
+}
