@@ -16,7 +16,7 @@ export interface MyState{
     /**
      * Keys
      */
-    keys: KeyState,
+    // keys: KeyState,
 
     /**
      * Tables

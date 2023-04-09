@@ -16,7 +16,6 @@ import { HttpClientModule } from '@angular/common/http'
 import { TableEffect } from './store/effects/table.effect';
 import { ContentEffect } from './store/effects/content.effect';
 import { ShowMenuDirective } from './shared/directives/sub-menu.directive';
-import { KeyEffect } from './store/effects/key.effect';
 import { MenuComponent } from './features/bdd/menu/menu.component';
 import { ContentComponent } from './features/bdd/content/content.component';
 import { MContentComponent } from './shared/components/m-content/m-content.component';
@@ -39,7 +38,7 @@ import { MContentComponent } from './shared/components/m-content/m-content.compo
     ReactiveFormsModule,
     HttpClientModule,
     FormsModule,
-    EffectsModule.forRoot([TableEffect, ContentEffect, KeyEffect]),
+    EffectsModule.forRoot([TableEffect, ContentEffect]),
     StoreModule.forRoot(ROOT_REDUCERS, {}),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
   ],

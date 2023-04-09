@@ -1,14 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable, Subscription, combineLatestWith, map } from 'rxjs';
+import { Observable } from 'rxjs';
 import { IContent } from './core/models/content.interface';
 import { ITable } from './core/models/table.interface';
-import { KeyService } from './core/services/key.service';
 import { tryFetchTables } from './store/actions/table.action';
 import { fetchContentSelector } from './store/selectors/content.selector';
 import { getIsLoad, getTables } from './store/selectors/table.selector';
-import { tryfetchKey } from './store/actions/key.action';
-import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
@@ -26,25 +23,25 @@ export class AppComponent implements OnInit {
   constructor(
     private store: Store
   ){
-    this.isLoad$.pipe(
-      combineLatestWith(this.tables$),
-      map(([isLoad, tables]) => {
-        return [isLoad, tables]
-      })
-    ).subscribe((data) => {
-      if(data[0] === true && (data[1] as ITable[]).length)
-        this.checkTableContent(data[1] as ITable[])
-    })
+    // this.isLoad$.pipe(
+    //   combineLatestWith(this.tables$),
+    //   map(([isLoad, tables]) => {
+    //     return [isLoad, tables]
+    //   })
+    // ).subscribe((data) => {
+    //   if(data[0] === true && (data[1] as ITable[]).length)
+    //     this.checkTableContent(data[1] as ITable[])
+    // })
   }
 
   ngOnInit(): void {
     this.store.dispatch(tryFetchTables())
   }
 
-  checkTableContent(tables: ITable[]){
-    tables.forEach( table => {
-      this.store.dispatch(tryfetchKey({table}))
-    })
-  }
+  // checkTableContent(tables: ITable[]){
+  //   tables.forEach( table => {
+  //     this.store.dispatch(tryfetchKey({table}))
+  //   })
+  // }
 
 }
