@@ -27,7 +27,7 @@ export class KeyService{
      * @param table 
      * @returns 
      */
-    get(table: ITable): Observable<IContent | IContent[]>{
+    check(table: ITable): Observable<IContent | IContent[]>{
         return this.http.get<IContent | IContent[]>(`https://restapi.fr/api/${table.name}`)
     }
 }

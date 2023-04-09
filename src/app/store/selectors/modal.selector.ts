@@ -7,3 +7,7 @@ export const selectTableFeature = createFeatureSelector<ModalState>(modalKey)
 export const tableIsLoad = createSelector(selectTableFeature, (modals: ModalState) => {
     return modals.tableModal.isLoad
 })
+
+export const contentIsLoad = createSelector(selectTableFeature, (modals: ModalState) => {
+    return modals.contentModal.isLoad
+})

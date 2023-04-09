@@ -34,8 +34,8 @@
     </div>
     <!-- content -->
     <div class="content">
-        <app-menu></app-menu>
-        <app-content></app-content>
+        <app-menu [tableSelecte]="tableSelected" [idContent]="idContentSelected"></app-menu>
+        <app-content (event)="setIDContentSelected($event)"></app-content>
     </div>
     <!-- content -->
 

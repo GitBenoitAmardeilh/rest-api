@@ -25,6 +25,18 @@ export class ContentService{
     /**
      * 
      * @param table 
+     * @param data 
+     * @returns 
+     */
+    add(table: ITable, data: {[key: string]: string}){
+        console.log('data : ', data)
+        console.log('table : ', table)
+        return this.http.post(`https://restapi.fr/api/${table.name}`, data)
+    }
+
+    /**
+     * 
+     * @param table 
      * @param id 
      * @returns 
      */

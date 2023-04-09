@@ -47,7 +47,6 @@ export interface KeyState{
 }
 
 export interface ModalState{
-    tableModal: {
-        isLoad: boolean,
-    }
+    tableModal: { isLoad: boolean },
+    contentModal: { isLoad: boolean },
 }

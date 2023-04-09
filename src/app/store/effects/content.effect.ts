@@ -3,7 +3,7 @@ import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { map, mergeMap, switchMap, tap } from "rxjs";
 import { IContent } from "src/app/core/models/content.interface";
 import { ContentService } from "src/app/core/services/content.service";
-import { DeleteContentById, fetchContent, tryDeleteContentById, tryFetchContent } from "../actions/content.action";
+import { DeleteContentById, addContent, fetchContent, tryAddContent, tryDeleteContentById, tryFetchContent } from "../actions/content.action";
 
 @Injectable()
 export class ContentEffect{
@@ -12,6 +12,13 @@ export class ContentEffect{
         ofType(tryFetchContent),
         mergeMap( ({table}) => this.sContent.get(table).pipe(
             map( (contents: IContent[]) => fetchContent({contents, table}))
+        ))
+    ))
+
+    addContent$ = createEffect( () => this.action$.pipe(
+        ofType(tryAddContent),
+        switchMap(({table, data}) => this.sContent.add(table, data).pipe(
+            map(() => addContent())
         ))
     ))
 

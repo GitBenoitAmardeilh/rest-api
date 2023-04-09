@@ -8,3 +8,7 @@ export const selectContentFeature = createFeatureSelector<ContentState>(contentK
 export const fetchContentSelector = createSelector(selectContentFeature, (contents: ContentState) => {
     return contents.data
 })
+
+export const lengthContentSelector = createSelector(selectContentFeature, (contents: ContentState) => {
+    return contents.data.length
+})

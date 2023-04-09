@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { combineLatestWith, map, Observable, tap } from 'rxjs';
 import { IContent } from 'src/app/core/models/content.interface';
@@ -18,10 +18,12 @@ import { getIsLoad, getTables } from 'src/app/store/selectors/table.selector';
 })
 export class BddComponent{
 
+  @Input() public idContentSelected: number
+
   public tables$: Observable<ITable[]> = this.store.select(getTables)
   public isTableModalLoad$: Observable<boolean> = this.store.select(tableIsLoad)
   public isLoad$: Observable<boolean>  = this.store.select(getIsLoad);
-  public tableSelected: string
+  public tableSelected: ITable
 
   public contents$: Observable<IContent[]> = this.store.select(fetchContentSelector)
   public isContents$: Observable<boolean> = this.store.select(fetchContentSelector).pipe(
@@ -54,20 +56,12 @@ export class BddComponent{
    */
   selectTable(_table: ITable | undefined){
     let table = _table as ITable
-    this.tableSelected = table.name
-    
-    let subscription = this.isLoad$.pipe(
-      combineLatestWith(this.tables$),
-      map(([load, tables]) => {
-        if(load && tables.length){
-          console.log(load);  
-          return tables
-        }
-        return []
-      })
-    )
-
+    this.tableSelected = table
     this.store.dispatch(tryFetchContent({table}))
+  }
+
+  setIDContentSelected(id: number){
+    this.idContentSelected = id
   }
 
 }

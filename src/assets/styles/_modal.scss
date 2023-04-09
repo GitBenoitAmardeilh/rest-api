@@ -1,0 +1,40 @@
+.modal{
+    position: absolute;
+    background-color: rgba(129, 129, 129, 0.3);
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 20;
+}
+
+.m-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+}
+
+.m-container .m-modal{
+    min-width: 450px;
+    border-radius: 5px 5px 0 0;
+    background-color: rgb(50,50,50);
+}
+
+.m-container .m-modal .title{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: rgb(50,50,50);
+    border-radius: 5px 5px 0 0;
+    padding: 10px;
+}
+
+.m-container .m-modal .content{
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    color: black;
+}

@@ -49,13 +49,18 @@ table{
         tr:nth-child(2n) {
             background-color: rgb(65, 67, 75);
         }
+        tr:hover{
+            cursor: pointer;
+            td{
+                color: rgb(100, 129, 224);
+            }
+        }
     }
     td, th{
         max-width: 400px;
         white-space: nowrap;
         overflow:hidden;
         text-overflow:ellipsis;
-        color: rgb(255, 255, 255);
         &:last-child{
             border-right: none;
         }
@@ -69,7 +74,7 @@ table{
     }
     td{
         font-size: 14px;
-        
+        color: rgb(197, 197, 197);
     }
     .data{
         padding: 10px 40px 10px 5px;
@@ -100,7 +105,7 @@ table{
 
 
 .c-params{
-    background-color: var(--primary-color   );
+    background-color: var(--secondary-color);
     width: 250px;
     border-left: 1px solid rgb(65, 65, 65);
 }
@@ -109,17 +114,17 @@ table{
     display: flex;
     flex-direction: column;
     font-size: 15px;
+    border-bottom: 1px solid rgb(54, 54, 54);
     div:first-child{
-        background-color: rgb(36, 36, 36);
+        background-color: var(--primary-color);
+        // background-color: rgb(36, 36, 36);
     }
-    // div:last-child{
-        p:last-child{
-            color: rgb(8, 212, 8)
-        }
-    // }
     div{
         display: flex;
         justify-content: space-between;
         padding: 5px 15px;
+        .p-type{
+            color: rgb(0, 230, 0);
+        }
     }
 }

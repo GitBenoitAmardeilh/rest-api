@@ -19,7 +19,7 @@
                         </td>
                         <td class="td-checkbox">
                             <div>
-                                <input type="checkbox">
+                                <input type="checkbox" [id]="i" (click)="checkbox($event, i)">
                             </div>
                         </td>
                         <td class="data" *ngFor="let k of (keys$ | async)">{{c[k]}}</td>
@@ -39,7 +39,15 @@
             </div>
             <div *ngFor="let p of (properties$ | async)">
                 <p>{{p.key}}</p>
-                <p>{{p.type}}</p>
+                <p class="p-type">{{p.type}}</p>
+            </div>
+        </div>
+        <div class="box-param">
+            <div>
+                <span>Informations</span>
+            </div>
+            <div *ngIf="(lengthContent$ | async) !== 0">
+                <p>Taille: {{(lengthContent$ | async)}}</p>
             </div>
         </div>
     </div>

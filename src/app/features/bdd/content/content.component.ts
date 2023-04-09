@@ -1,18 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable, map } from 'rxjs';
 import { IContent } from 'src/app/core/models/content.interface';
-import { fetchContentSelector } from 'src/app/store/selectors/content.selector';
+import { fetchContentSelector, lengthContentSelector } from 'src/app/store/selectors/content.selector';
+import { EventEmitter } from "@angular/core";
 
 @Component({
   selector: 'app-content',
   templateUrl: './content.component.html',
   styleUrls: ['./content.component.scss']
 })
-export class ContentComponent implements OnInit {
+export class ContentComponent{
+
+  @Output() private event: EventEmitter<number> = new EventEmitter()
 
   public format: string
   
+  public lengthContent$: Observable<number> = this.store.select(lengthContentSelector)
   public contents$: Observable<IContent[]> = this.store.select(fetchContentSelector)
   public isContents$: Observable<boolean> = this.store.select(fetchContentSelector).pipe(
     map(t => (t.length) ? false : true)
@@ -45,7 +49,9 @@ export class ContentComponent implements OnInit {
 
    }
 
-  ngOnInit(): void {
-  }
+   checkbox(e: Event, id: number){
+    console.log(e)
+    // this.event.emit(id)
+   }
 
 }

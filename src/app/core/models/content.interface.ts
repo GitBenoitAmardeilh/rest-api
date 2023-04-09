@@ -3,3 +3,9 @@ export interface IContent{
     idTable: string,
     [key: string]: string
 }
+
+export interface IContentValue{
+    key: string, 
+    type?: string, 
+    value: string
+}
