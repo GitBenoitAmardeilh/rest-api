@@ -4,6 +4,13 @@
     letter-spacing: 0.5px;
 }
 
+.disabled-input{
+    background-color: rgb(230,230,230);
+}
+.enabled-input{
+    background-color: white;
+}
+
 .scrool{
     overflow: auto;
     /* width */

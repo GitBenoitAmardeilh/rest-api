@@ -8,6 +8,30 @@ import { tryAddContent } from 'src/app/store/actions/content.action';
 import { contentModalIsLoad } from 'src/app/store/actions/modal.action';
 import { contentIsLoad } from 'src/app/store/selectors/modal.selector';
 
+/**
+ * VALEURS ALEATOIRES POUR :
+ * 
+ * --STRING--[
+ *    - Texte aléatoire
+ *    - Texte saisie
+ *    - Liste de textes ['val1', 'val2', ...] 
+ * ]
+ * 
+ * --BOOLEAN--[
+ *    - Valeur aléatoire ('true' OU 'false')
+ *    - Valeur saisie (tout à 'true' OU tout à 'false')
+ * ]
+ * 
+ * --NUMBER--[
+ *    - Valeur aléatoire
+ *    - Valeur saisie (La même valeur pour chaque entrée)
+ * ]
+ * 
+ * --DATE--[
+ *    - date du jour pour le moment
+ * ]
+ */
+
 @Component({
   selector: 'app-m-content',
   templateUrl: './m-content.component.html',
@@ -17,9 +41,9 @@ export class MContentComponent {
 
   @Input() public tableSelecte: ITable
   
-  public contentIsLoad$: Observable<boolean> = this.store.select(contentIsLoad)
+  public contentIsLoad$: Observable<boolean> = this.store.select(contentIsLoad);
 
-  public form: FormGroup
+  public form: FormGroup;
 
   constructor(
     private store: Store,
@@ -55,7 +79,8 @@ export class MContentComponent {
     tab.forEach( (k) => {
       Object.assign(data, {[k.key]: k.value})
     })
-    this.store.dispatch(tryAddContent({table, data}))
+    console.log(data)
+    // this.store.dispatch(tryAddContent({table, data}))
   }
 
   /**
@@ -66,32 +91,9 @@ export class MContentComponent {
       this.fb.group({
         key: [""],
         type: [this.form.value.type],
-        value: [this.getValue(this.form.value.type)]
+        value: "random"
       })
     )
-  }
-
-  /**
-   * 
-   * @param type 
-   * @returns 
-   */
-  getValue(type: string): any{
-    switch(type){
-      case "string":
-        return "Ligne";
-        break;
-      case "number":
-        return 0;
-        break;
-      case "date":
-        return new Date().toDateString();
-        break;
-      case "boolean":
-        return false;
-        break;
-    }
-    return undefined
   }
 
 }
