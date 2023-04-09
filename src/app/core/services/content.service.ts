@@ -40,8 +40,8 @@ export class ContentService{
      * @param id 
      * @returns 
      */
-    delete(table: string, id: string): Observable<any>{
-        return this.http.delete<any>(`https://restapi.fr/api/${table}/${id}`)
+    delete(table: ITable, id: string): Observable<any>{
+        return this.http.delete<any>(`https://restapi.fr/api/${table.name}/${id}`)
     }
 
 }

@@ -49,9 +49,14 @@ export class ContentComponent{
 
    }
 
-   checkbox(e: Event, id: number){
-    console.log(e)
-    // this.event.emit(id)
+   /**
+    * 
+    * @param e 
+    * @param id 
+    */
+   checkbox(e: Event){
+    let id: number = parseInt((e.target as HTMLElement).getAttribute('id') as string)
+    this.event.emit(id)
    }
 
 }
