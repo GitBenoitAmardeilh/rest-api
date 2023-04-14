@@ -9,19 +9,39 @@
             </div>
             <form [formGroup]="form" (ngSubmit)="submit()" class="form-selector">
                 <div class="content-menu">
-                    <div class="form-container">
-                        <select formControlName="type">
-                            <option value="string" selected>String</option>
-                            <option value="number">Number</option>
-                            <option value="boolean">Boolean</option>
-                            <option value="date">Date</option>
-                        </select>
-                        <div class="div-button" (click)="addContent()">
-                            <p>Valider</p>
+                    <div>
+                        <div class="form-container">
+                            <select formControlName="type">
+                                <option value="string" selected>String</option>
+                                <option value="number">Number</option>
+                                <option value="boolean">Boolean</option>
+                                <option value="date">Date</option>
+                            </select>
+                            <div class="div-button" (click)="addContent()">
+                                <p>Valider</p>
+                            </div>
+                        </div>
+                        <div>
+                            <button type="submit" class="save-button" [disabled]="!keys.controls.length">Enregistrer</button>
                         </div>
                     </div>
                     <div>
-                        <button type="submit" class="save-button" [disabled]="!keys.controls.length">Enregistrer</button>
+                        <input formControlName="checkbox" type="checkbox">
+                        <p>Ajouter de la data</p>
+                        <select formControlName="seed" [attr.disabled]="form.value.checkbox === false ? true : null">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                            <option value="20">20</option>
+                            <option value="30">30</option>
+                        </select>
                     </div>
                 </div>
                 <div class="array_list">
@@ -39,26 +59,26 @@
                                 <tr [formGroupName]="i" *ngFor="let k of keys.controls; let i = index">
                                     <td><input formControlName="key" type="text"></td>
                                     <td>
-                                        <select *ngIf="k.value.type === 'string'" formControlName="value" id="string">
+                                        <select *ngIf="k.value.type === 'string'" formControlName="option" id="string">
                                             <option value="">--config seed--</option>
-                                            <option value="random" selected>Texte aléatoire</option>
+                                            <option value="random">Texte aléatoire</option>
                                             <option value="selected">Texte selectionné</option>
                                         </select>
-                                        <select *ngIf="k.value.type === 'number'" formControlName="value" id="number">
+                                        <select *ngIf="k.value.type === 'number'" formControlName="option" id="number">
                                             <option value="">--config seed--</option>
                                             <option value="random">Nombre aléatoire</option>
                                             <option value="selected">Nombre selectionné</option>
                                         </select>
-                                        <select *ngIf="k.value.type === 'boolean'" formControlName="value" id="boolean">
+                                        <select *ngIf="k.value.type === 'boolean'" formControlName="option" id="boolean">
                                             <option value="">--config seed--</option>
                                             <option value="random">Valeur aléatoire</option>
                                             <option value="selected">Valeur selectionnée</option>
                                         </select>
                                     </td>
                                     <td>
-                                        <input type="text" *ngIf="k.value.type === 'string'" [disabled]="k.value.value === 'random'" [ngClass]="{'disabled-input': k.value.value === 'random', 'enabled-input': k.value.value === 'selected' }">
-                                        <input type="number" *ngIf="k.value.type === 'number'" [disabled]="k.value.value === 'random'" [ngClass]="{'disabled-input': k.value.value === 'random', 'enabled-input': k.value.value === 'selected' }">
-                                        <select *ngIf="k.value.type === 'boolean'" [disabled]="k.value.value === 'random'" [ngClass]="{'disabled-input': k.value.value === 'random', 'enabled-input': k.value.value === 'selected' }">
+                                        <input formControlName="content" type="text" *ngIf="k.value.type === 'string'" [attr.disabled]="k.value.option === 'random' ? true : null" [ngClass]="{'disabled-input': k.value.option === 'random', 'enabled-input': k.value.option === 'selected' }">
+                                        <input formControlName="content" type="number" *ngIf="k.value.type === 'number'" [attr.disabled]="k.value.option === 'random' ? true : null" [ngClass]="{'disabled-input': k.value.option === 'random', 'enabled-input': k.value.option === 'selected' }">
+                                        <select formControlName="content" *ngIf="k.value.type === 'boolean'" [attr.disabled]="k.value.option === 'random' ? true : null" [ngClass]="{'disabled-input': k.value.option === 'random', 'enabled-input': k.value.option === 'selected' }">
                                             <option value=""></option>
                                             <option value="true">true</option>
                                             <option value="false">false</option>

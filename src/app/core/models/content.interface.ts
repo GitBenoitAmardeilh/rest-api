@@ -1,11 +1,11 @@
 export interface IContent{
-    _id: string,
-    idTable: string,
-    [key: string]: string
+    _id?: string | undefined,
+    [key: string]: string | undefined
 }
 
 export interface IContentValue{
     key: string, 
     type?: string, 
-    value: string
+    option: string,
+    content: string
 }

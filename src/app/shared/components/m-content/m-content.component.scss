@@ -13,9 +13,19 @@ input, select, option, button{
 .content-menu{
     display: flex;
     align-items: center;
+    justify-content: space-between;
     // flex-direction: row;
     div:first-child{
         display: flex;
+    }
+    div:last-child{
+        display: flex;
+        align-items: center;
+        p{
+            color: black;
+            padding: 0 5px;
+            font-size: 15px;
+        }
     }
     select, button{
         padding: 7px;

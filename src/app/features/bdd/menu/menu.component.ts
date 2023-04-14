@@ -26,6 +26,7 @@ export class MenuComponent{
   constructor(
     private store: Store
   ) {
+    this.idContent = 0
     this.contents = []
     this.contents$.subscribe( contents => {
       this.contentLength = contents.length;
@@ -50,7 +51,7 @@ export class MenuComponent{
     let id: string = ""
     this.contents.forEach( (content, index) => {
       if(index === this.idContent)
-        id = content._id
+        id = content._id as string
     })
     this.store.dispatch(tryDeleteContentById({table: this.tableSelecte, id}))
   }

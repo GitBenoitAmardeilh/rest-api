@@ -1,10 +1,10 @@
 import { Component, Input } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { IContentValue } from 'src/app/core/models/content.interface';
+import { IContent, IContentValue } from 'src/app/core/models/content.interface';
 import { ITable } from 'src/app/core/models/table.interface';
-import { tryAddContent } from 'src/app/store/actions/content.action';
+import { tryAddContent, fetchContent } from 'src/app/store/actions/content.action';
 import { contentModalIsLoad } from 'src/app/store/actions/modal.action';
 import { contentIsLoad } from 'src/app/store/selectors/modal.selector';
 
@@ -51,6 +51,8 @@ export class MContentComponent {
   ) {
     this.form = this.fb.group({
       type: [''],
+      seed: 1,
+      checkbox: [false, Validators.requiredTrue],
       keys: this.fb.array([] as IContentValue[])
     })
   }
@@ -73,27 +75,70 @@ export class MContentComponent {
    * 
    */
   submit(){
-    let tab: IContentValue[] = this.keys.value
-    let data = <{[key: string]: string}>{};
+    let tab: IContentValue[] = this.keys.value;
     let table = this.tableSelecte
-    tab.forEach( (k) => {
-      Object.assign(data, {[k.key]: k.value})
-    })
-    console.log(data)
-    // this.store.dispatch(tryAddContent({table, data}))
+    let data: IContent[] = []
+    let i: number = 0
+
+    while(i < this.form.value.seed){
+      let array = <{[key: string]: string}>{};
+      tab.forEach( (k) => {
+        let cont: string | number | boolean = ""
+        if(k.option === 'random')
+          cont = this.returnRandomValue(k)
+        else
+          cont = k.content
+
+        Object.assign(array, {[k.key]: cont})
+      })
+      data.push(array)
+      i++
+    }
+
+    let contents: IContent[] = data
+
+    this.store.dispatch(tryAddContent({table, data}))
+    // this.store.dispatch(fetchContent({contents, table}))
+    this.store.dispatch(contentModalIsLoad({isLoad: false}))
+  }
+
+  /**
+   * 
+   */
+  returnRandomValue(content: IContentValue): string | number | boolean{
+    
+    let data: string | number | boolean
+    switch(content.type){
+      case "string":
+        data = "random text"
+        break;
+      case "number":
+        data = Math.floor(Math.random() * 100)
+        break;
+      case "boolean":
+        data = (Math.floor(Math.random() * 2) === 1) ? true : false
+        break;
+      default:
+        data = ""
+        break;
+    }
+    return data
   }
 
   /**
    * 
    */
   addContent(){
-    this.keys.push(
-      this.fb.group({
-        key: [""],
-        type: [this.form.value.type],
-        value: "random"
-      })
-    )
+    if(this.form.value.type.length !== 0){
+      this.keys.push(
+        this.fb.group({
+          key: [""],
+          type: [this.form.value.type],
+          option: "random",
+          content: ""
+        })
+      )
+    }
   }
 
 }

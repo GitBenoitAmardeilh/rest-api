@@ -18,7 +18,7 @@ export class ContentEffect{
     addContent$ = createEffect( () => this.action$.pipe(
         ofType(tryAddContent),
         switchMap(({table, data}) => this.sContent.add(table, data).pipe(
-            map(() => addContent())
+            map(({table, data}) => addContent({table, data}))
         ))
     ))
 

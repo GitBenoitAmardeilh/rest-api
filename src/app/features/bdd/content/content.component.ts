@@ -10,7 +10,7 @@ import { EventEmitter } from "@angular/core";
   templateUrl: './content.component.html',
   styleUrls: ['./content.component.scss']
 })
-export class ContentComponent{
+export class ContentComponent implements OnInit{
 
   @Output() private event: EventEmitter<number> = new EventEmitter()
 
@@ -47,14 +47,16 @@ export class ContentComponent{
   ) {
     this.format = "table"
 
-   }
+  }
+
+  ngOnInit(): void {}
 
    /**
     * 
     * @param e 
     * @param id 
     */
-   checkbox(e: Event){
+   selectLine(e: Event){
     let id: number = parseInt((e.target as HTMLElement).getAttribute('id') as string)
     this.event.emit(id)
    }

@@ -28,9 +28,7 @@ export class ContentService{
      * @param data 
      * @returns 
      */
-    add(table: ITable, data: {[key: string]: string}){
-        console.log('data : ', data)
-        console.log('table : ', table)
+    add(table: ITable, data: IContent[]): Observable<any>{
         return this.http.post(`https://restapi.fr/api/${table.name}`, data)
     }
 
